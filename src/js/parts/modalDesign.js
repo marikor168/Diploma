@@ -18,13 +18,12 @@ function modalDesign() {
         });
     });
 
-    // modal.addEventListener('click', (event) => {
-    //     if (!event.target.classList.contains('popup-content')) {
-
-    //         modal.style.display = 'none';
-    //         document.body.style.overflow = '';
-    //     }
-    // });
+    modal.addEventListener('click', (event) => {
+        if (event.target.classList.contains('popup-design')) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
 }
 
 module.exports = modalDesign;

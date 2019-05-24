@@ -283,12 +283,13 @@ function modalConsultation() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
     });
-  }); // modal.addEventListener('click', (event) => {
-  //     if (!event.target.classList.contains('popup-content')) {
-  //         modal.style.display = 'none';
-  //         document.body.style.overflow = '';
-  //     }
-  // });
+  });
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup-consultation')) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 }
 
 module.exports = modalConsultation;
@@ -317,12 +318,13 @@ function modalDesign() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
     });
-  }); // modal.addEventListener('click', (event) => {
-  //     if (!event.target.classList.contains('popup-content')) {
-  //         modal.style.display = 'none';
-  //         document.body.style.overflow = '';
-  //     }
-  // });
+  });
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup-design')) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 }
 
 module.exports = modalDesign;
@@ -351,12 +353,13 @@ function modalGift() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
     gift.style.display = 'block';
-  }); // modal.addEventListener('click', (event) => {
-  //     if (!event.target.classList.contains('popup-content')) {
-  //         modal.style.display = 'none';
-  //         document.body.style.overflow = '';
-  //     }
-  // });
+  });
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup-gift')) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 }
 
 module.exports = modalGift;
