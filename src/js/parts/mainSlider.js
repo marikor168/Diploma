@@ -1,4 +1,4 @@
-function mainSlider() {
+let mainSlider = () => {
     let slideIndex = 1,
         slides = document.querySelectorAll('.main-slider-item');
 
@@ -27,6 +27,6 @@ function mainSlider() {
 
     setInterval(plusSlides, 5000, 1);
    
-}
+};
 
 module.exports = mainSlider;

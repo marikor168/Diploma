@@ -1,4 +1,4 @@
-function feedbackSlider() {
+let feedbackSlider = () => {
     let slideIndex = 1,
         slides = document.querySelectorAll('.feedback-slider-item'),
         prev = document.querySelector('.main-prev-btn'),
@@ -44,6 +44,6 @@ function feedbackSlider() {
     });
 
     setInterval(plusSlides, 15000, 1);
-}
+};
 
 module.exports = feedbackSlider;
