@@ -166,6 +166,46 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./src/js/parts/accordion.js":
+/*!***********************************!*\
+  !*** ./src/js/parts/accordion.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var accordion = function accordion() {
+  var accordionHeadings = document.querySelectorAll('.accordion-heading'),
+      accordionBlocks = document.querySelectorAll('.accordion-block');
+  accordionBlocks.forEach(function (item) {
+    item.style.display = 'none';
+    item.classList.add('animated');
+    item.classList.add('fadeIn');
+  }); //   accordionHeadings.__proto__.forEach = [].__proto__.forEach;
+
+  var activePanel;
+  accordionHeadings.forEach(function (item, i, accordionHeadings) {
+    item.addEventListener('click', function (e) {
+      //show new thingy;
+      this.classList.add('ui-accordion-header-active');
+      this.nextElementSibling.classList.add('ui-accordion-content-active');
+      this.nextElementSibling.style.display = 'block'; //hide old thingy
+
+      if (activePanel) {
+        activePanel.classList.remove('ui-accordion-header-active');
+        activePanel.nextElementSibling.classList.remove('ui-accordion-content-active');
+        activePanel.nextElementSibling.style.display = 'none';
+      } //update thingy
+
+
+      activePanel = activePanel === this ? 0 : this;
+    });
+  });
+};
+
+module.exports = accordion;
+
+/***/ }),
+
 /***/ "./src/js/parts/feedbackSlider.js":
 /*!****************************************!*\
   !*** ./src/js/parts/feedbackSlider.js ***!
@@ -251,8 +291,7 @@ var form = function form() {
     inputName.value = inputName.value.replace(/[A-z\d]/g, "");
   });
   inputPhone.addEventListener('input', function () {
-    inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, "");
-    inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
+    inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, ""); // inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
 
     if (inputPhone.value.length > 12) {
       inputPhone.value = inputPhone.value.substr(0, 12);
@@ -265,8 +304,7 @@ var form = function form() {
     inputNameConsult.value = inputNameConsult.value.replace(/[A-z\d]/g, "");
   });
   inputPhoneConsult.addEventListener('input', function () {
-    inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, "");
-    inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
+    inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, ""); // inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
 
     if (inputPhoneConsult.value.length > 12) {
       inputPhoneConsult.value = inputPhoneConsult.value.substr(0, 12);
@@ -393,7 +431,6 @@ var modals = function modals() {
 
     if (event.target.classList.contains('button-design')) {
       modalOpen(modalDesign);
-      console.log(modalDesign.style);
     }
 
     if (event.target.classList.contains('button-consultation')) {
@@ -419,10 +456,11 @@ var modals = function modals() {
     }
   });
   window.addEventListener('scroll', function () {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !clickBtn) {
+    if (window.innerHeight + Math.abs(body.getBoundingClientRect().top) >= document.body.offsetHeight && !clickBtn) {
       modalOpen(modalGift);
       gift.style.display = 'none';
-    }
+    } // console.log(window.scrollY);
+
   });
   setTimeout(function (modal) {
     if (modalDesign.style.display == '' && modalConsult.style.display == '' && modalGift.style.display == '') {
@@ -453,12 +491,14 @@ window.addEventListener('DOMContentLoaded', function () {
   var mainSlider = __webpack_require__(/*! ./parts/mainSlider.js */ "./src/js/parts/mainSlider.js"),
       feedbackSlider = __webpack_require__(/*! ./parts/feedbackSlider.js */ "./src/js/parts/feedbackSlider.js"),
       modals = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),
-      form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js");
+      form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js"),
+      accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js");
 
   mainSlider();
   feedbackSlider();
   modals();
   form();
+  accordion();
 });
 
 /***/ })

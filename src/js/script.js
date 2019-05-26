@@ -8,11 +8,12 @@ window.addEventListener('DOMContentLoaded', function() {
     let mainSlider = require('./parts/mainSlider.js'),
         feedbackSlider = require('./parts/feedbackSlider.js'),
         modals = require('./parts/modal.js'),
-        form = require('./parts/form.js');
+        form = require('./parts/form.js'),
+        accordion = require('./parts/accordion.js');
 
     mainSlider();
     feedbackSlider();
     modals();
     form();
-    
+    accordion();
 });

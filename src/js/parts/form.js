@@ -27,7 +27,7 @@ let form = () => {
     
     inputPhone.addEventListener('input', () => {
         inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, "");
-        inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
+        // inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
         if (inputPhone.value.length > 12) {
                 inputPhone.value = inputPhone.value.substr(0, 12);
             }
@@ -43,7 +43,7 @@ let form = () => {
     
     inputPhoneConsult.addEventListener('input', () => {
         inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, "");
-        inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
+        // inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
         if (inputPhoneConsult.value.length > 12) {
                 inputPhoneConsult.value = inputPhoneConsult.value.substr(0, 12);
             }

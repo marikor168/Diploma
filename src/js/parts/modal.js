@@ -30,7 +30,6 @@ let modals = () => {
         clickBtn = true;
         if (event.target.classList.contains('button-design')) {
             modalOpen(modalDesign);
-            console.log(modalDesign.style);
         }
         if (event.target.classList.contains('button-consultation')) {
             modalOpen(modalConsult);
@@ -53,10 +52,11 @@ let modals = () => {
     });
 
     window.addEventListener('scroll', () => {
-        if (((window.innerHeight + window.scrollY) >= document.body.offsetHeight) && !clickBtn) {
+        if (((window.innerHeight + Math.abs(body.getBoundingClientRect().top)) >= document.body.offsetHeight) && !clickBtn) {
             modalOpen(modalGift);
             gift.style.display = 'none'; 
         }
+        // console.log(window.scrollY);
     });
 
     setTimeout((modal) => {
