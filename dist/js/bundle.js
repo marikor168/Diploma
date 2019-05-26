@@ -222,81 +222,56 @@ module.exports = feedbackSlider;
 
 /***/ }),
 
-/***/ "./src/js/parts/formDesign.js":
-/*!************************************!*\
-  !*** ./src/js/parts/formDesign.js ***!
-  \************************************/
+/***/ "./src/js/parts/form.js":
+/*!******************************!*\
+  !*** ./src/js/parts/form.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var formDesign = function formDesign() {
+var form = function form() {
   var message = {
     loading: 'Загрузка...',
     success: 'Спасибо! Скоро мы с вами свяжемся!',
     failure: 'Что-то пошло не так...'
   };
-  var form = document.querySelector('.popup-design form'),
-      input = form.getElementsByTagName('input'),
-      inputName = input[1],
-      inputPhone = input[2],
-      inputMail = input[3],
-      comment = form.getElementsByTagName('textarea')[0],
+  var formDesign = document.querySelector('.popup-design form'),
+      inputDesign = formDesign.getElementsByTagName('input'),
+      inputName = inputDesign[1],
+      inputPhone = inputDesign[2],
+      inputMail = inputDesign[3],
+      comment = formDesign.getElementsByTagName('textarea')[0],
       statusMessage = document.createElement('div');
-  console.log(inputName);
-  console.log(inputPhone);
-  console.log(inputMail);
-  console.log(comment); // inputPhone.addEventListener('input', () => {
-  //     inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, "");
-  //     inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
-  // });
-  // inputName.addEventListener('input', () => {
-  //     inputName.value = inputName.value.replace(/[^А-я]/g, "");
-  // });
-  // comment.addEventListener('input', () => {
-  //     comment.value = comment.value.replace(/[^А-я]/g, "");
-  // });
-  // let telPlaceholder = "+7(___) ___-____";
-  // let numsOnly = "";
-  // inputPhone.addEventListener('focus', () => {
-  //     if (numsOnly.length !== 10) {
-  //         inputPhone.value = telPlaceholder;
-  //     }
-  // });
-  // inputPhone.addEventListener('input', () => {
-  //     let rawTel = inputPhone.value;
-  //     numsOnly = rawTel.replace(/\D/g, "");
-  //     let result = telPlaceholder.split("");
-  //     for (let i = 0, j = 0; i < result.length; i++) {
-  //         // if (i == 0 || i == 4 || i == 5 || i == 9){
-  //         if (i == 0 || i == 1 || i == 2 || i == 6 || i == 7 || i == 11) {
-  //             continue;
-  //         }
-  //         let tmp = numsOnly[j++];
-  //         if (tmp !== undefined) {
-  //             result[i] = tmp;
-  //         }
-  //     }
-  //     inputPhone.value = result.join("");
-  //     if (numsOnly.length > 10) {
-  //         numsOnly = numsOnly.substr(0, 10);
-  //     }
-  //     setCursorPosition();
-  // });
-  // function setCursorPosition() {
-  //     let length = numsOnly.length;
-  //     if (length >= 2 && length <= 5) {
-  //         inputPhone.setSelectionRange(length + 3, length + 3);
-  //     } else if (length >= 6 && length <= 8) {
-  //         inputPhone.setSelectionRange(length + 5, length + 5);
-  //     } else {
-  //         inputPhone.setSelectionRange(length + 6, length + 6);
-  //     }
-  // }
-  // inputPhone.addEventListener('blur', () => {
-  //     if (numsOnly.length !== 10) {
-  //         inputPhone.value = '';
-  //     }
-  // });
+  var formConsult = document.querySelector('.popup-consultation form'),
+      inputConsult = formConsult.getElementsByTagName('input'),
+      inputNameConsult = inputConsult[0],
+      inputPhoneConsult = inputConsult[1];
+  var modalDesign = document.querySelector('.popup-design');
+  inputName.addEventListener('input', function () {
+    inputName.value = inputName.value.replace(/[A-z\d]/g, "");
+  });
+  inputPhone.addEventListener('input', function () {
+    inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, "");
+    inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
+
+    if (inputPhone.value.length > 12) {
+      inputPhone.value = inputPhone.value.substr(0, 12);
+    }
+  });
+  comment.addEventListener('input', function () {
+    comment.value = comment.value.replace(/[A-z]/g, "");
+  });
+  inputNameConsult.addEventListener('input', function () {
+    inputNameConsult.value = inputNameConsult.value.replace(/[A-z\d]/g, "");
+  });
+  inputPhoneConsult.addEventListener('input', function () {
+    inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, "");
+    inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
+
+    if (inputPhoneConsult.value.length > 12) {
+      inputPhoneConsult.value = inputPhoneConsult.value.substr(0, 12);
+    }
+  });
 
   var sendForm = function sendForm(elem) {
     elem.addEventListener('submit', function (event) {
@@ -311,7 +286,9 @@ var formDesign = function formDesign() {
         });
       };
 
-      var clearInput = function clearInput() {
+      var clearInput = function clearInput(elem) {
+        var input = elem.getElementsByTagName('input');
+
         for (var i = 0; i < input.length; i++) {
           input[i].value = '';
         }
@@ -320,19 +297,23 @@ var formDesign = function formDesign() {
       };
 
       postData(formData).then(function () {
-        return statusMessage.innerHTML = message.loading;
+        statusMessage.innerHTML = "<img src='img/ajax-loader.gif'>";
+        statusMessage.style.cssText = "text-align: center; padding-top: 20px;";
       }).then(function () {
-        statusMessage.innerHTML = message.success;
+        // statusMessage.innerHTML = message.success;
+        // modalDesign.style.display = 'none';
+        statusMessage.innerHTML = "<img src='img/success.jpg'>";
       }).catch(function () {
         return statusMessage.innerHTML = message.failure;
-      }).then(clearInput);
+      }).then(clearInput(elem));
     });
   };
 
-  sendForm(form);
+  sendForm(formDesign);
+  sendForm(formConsult);
 };
 
-module.exports = formDesign;
+module.exports = form;
 
 /***/ }),
 
@@ -405,22 +386,14 @@ var modals = function modals() {
   modalConsult.classList.add('fadeIn');
   gift.classList.add('animated');
   modalGift.classList.add('animated');
-  modalGift.classList.add('fadeIn'); // console.log(body.getBoundingClientRect());
-  // console.log(Math.abs(body.getBoundingClientRect().y) + body.getBoundingClientRect().bottom + 1);
-  // console.log(body.clientHeight);
-
-  console.log(body.scrollTop);
-  window.addEventListener('scroll', function () {
-    console.log(window.pageYOffset);
-    console.log(document.documentElement.scrollTop);
-    console.log(Math.abs(body.getBoundingClientRect().y));
-  });
+  modalGift.classList.add('fadeIn');
   var clickBtn = false;
   body.addEventListener('click', function (event) {
     clickBtn = true;
 
     if (event.target.classList.contains('button-design')) {
       modalOpen(modalDesign);
+      console.log(modalDesign.style);
     }
 
     if (event.target.classList.contains('button-consultation')) {
@@ -451,6 +424,11 @@ var modals = function modals() {
       gift.style.display = 'none';
     }
   });
+  setTimeout(function (modal) {
+    if (modalDesign.style.display == '' && modalConsult.style.display == '' && modalGift.style.display == '') {
+      modalOpen(modalConsult);
+    }
+  }, 60000);
 };
 
 module.exports = modals;
@@ -475,12 +453,12 @@ window.addEventListener('DOMContentLoaded', function () {
   var mainSlider = __webpack_require__(/*! ./parts/mainSlider.js */ "./src/js/parts/mainSlider.js"),
       feedbackSlider = __webpack_require__(/*! ./parts/feedbackSlider.js */ "./src/js/parts/feedbackSlider.js"),
       modals = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),
-      formDesign = __webpack_require__(/*! ./parts/formDesign.js */ "./src/js/parts/formDesign.js");
+      form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js");
 
   mainSlider();
   feedbackSlider();
   modals();
-  formDesign();
+  form();
 });
 
 /***/ })
