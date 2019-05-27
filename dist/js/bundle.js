@@ -669,8 +669,8 @@ var styles = function styles() {
   var classes = blocks[0].className;
   btn.addEventListener('click', function () {
     stylesBlocks.forEach(function (item) {
-      item.classList.value = '';
-      item.classList.value = classes;
+      item.className = '';
+      item.className = classes;
     });
     btn.style.display = 'none';
   });
