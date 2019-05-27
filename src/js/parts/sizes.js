@@ -35,14 +35,16 @@ let sizes = () => {
     //     }
     // });
 
-    function changeImg(source) {
-        imgBlock.src = source;
-    }
-    console.log(imgBlock[0].src);
+    // function changeImg(source) {
+    //     imgBlock.src = source;
+    // }
+    // console.log(imgBlock[0].src);
+    // imgBlock[0].onMouseOver = changeImg('img/sizes-1-1.png' );
+    // console.log(imgBlock[0].src);
 
-    imgBlock[0].addEventListener('click', () => {
-        changeImg('img/sizes-1-1.png' );
-    });
+    // imgBlock[0].addEventListener('click', () => {
+    //     changeImg('img/sizes-1-1.png' );
+    // });
     
 };
 

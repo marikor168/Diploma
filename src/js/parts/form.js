@@ -11,43 +11,57 @@ let form = () => {
         inputName = inputDesign[1],
         inputPhone = inputDesign[2],
         inputMail = inputDesign[3],
-        comment = formDesign.getElementsByTagName('textarea')[0],
+        commentDesign = formDesign.getElementsByTagName('textarea')[0],
         statusMessage = document.createElement('div');
 
     let formConsult = document.querySelector('.popup-consultation form'),
-    inputConsult = formConsult.getElementsByTagName('input'),
-    inputNameConsult = inputConsult[0],
-    inputPhoneConsult = inputConsult[1];
+        inputConsult = formConsult.getElementsByTagName('input'),
+        inputNameConsult = inputConsult[0],
+        inputPhoneConsult = inputConsult[1];
 
-    let modalDesign = document.querySelector('.popup-design');
- 
-    inputName.addEventListener('input', () => {
-        inputName.value = inputName.value.replace(/[A-z\d]/g, "");
-    });
-    
-    inputPhone.addEventListener('input', () => {
-        inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, "");
-        // inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
-        if (inputPhone.value.length > 12) {
-                inputPhone.value = inputPhone.value.substr(0, 12);
-            }
-    });
+    let formMain = document.querySelector('.consultation form'),
+        inputMain = formMain.getElementsByTagName('input'),
+        inputNameMain = inputMain[0],
+        inputPhoneMain = inputMain[1],
+        commentMain = inputMain[3];
 
-    comment.addEventListener('input', () => {
-        comment.value = comment.value.replace(/[A-z]/g, "");
-    });
+    // let modalDesign = document.querySelector('.popup-design');
+    commentDesign.classList.add('message');
+    commentMain.classList.add('message');
 
-    inputNameConsult.addEventListener('input', () => {
-        inputNameConsult.value = inputNameConsult.value.replace(/[A-z\d]/g, "");
-    });
-    
-    inputPhoneConsult.addEventListener('input', () => {
-        inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, "");
-        // inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
-        if (inputPhoneConsult.value.length > 12) {
-                inputPhoneConsult.value = inputPhoneConsult.value.substr(0, 12);
-            }
-    });
+    let nameValidation = (input) => {
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[A-z\d]/g, "");
+        });
+    };
+
+    nameValidation(inputName);
+    nameValidation(inputNameConsult);
+    nameValidation(inputNameMain);
+
+    let phoneValidation = (input) => {
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[^0-9+]/g, "");
+            input.value = input.value.replace(/(?<!^)\+/g, "");
+            if (input.value.length > 12) {
+                    input.value = input.value.substr(0, 12);
+                }
+        });
+    };
+
+    phoneValidation(inputPhone);
+    phoneValidation(inputPhoneConsult);
+    phoneValidation(inputPhoneMain);
+
+    let commentValidation = (input) => {
+        input.addEventListener('input', () => {
+            input.value = input.value.replace(/[A-z]/g, "");
+        });
+    };
+
+    commentValidation(commentDesign);
+    commentValidation(commentMain);
+
 
     let sendForm = (elem) => {
         elem.addEventListener('submit', (event) => {
@@ -64,6 +78,7 @@ let form = () => {
 
             let clearInput = (elem) => {
                 let input = elem.getElementsByTagName('input');
+                let comment = elem.getElementsByClassName('.message');
                 for (let i = 0; i < input.length; i++) {
                     input[i].value = '';
                 }
@@ -76,9 +91,9 @@ let form = () => {
                     statusMessage.style.cssText = "text-align: center; padding-top: 20px;";
                 })               
                 .then(() => {
-                    // statusMessage.innerHTML = message.success;
+                    statusMessage.innerHTML = message.success;
                     // modalDesign.style.display = 'none';
-                    statusMessage.innerHTML = "<img src='img/success.jpg'>";
+                    // statusMessage.innerHTML = "<img src='img/success.jpg'>";
                 })
                 .catch(() => statusMessage.innerHTML = message.failure)
                 .then(clearInput(elem));
@@ -88,6 +103,7 @@ let form = () => {
 
     sendForm(formDesign);
     sendForm(formConsult);
+    sendForm(formMain);
 
 };
 

@@ -280,36 +280,54 @@ var form = function form() {
       inputName = inputDesign[1],
       inputPhone = inputDesign[2],
       inputMail = inputDesign[3],
-      comment = formDesign.getElementsByTagName('textarea')[0],
+      commentDesign = formDesign.getElementsByTagName('textarea')[0],
       statusMessage = document.createElement('div');
   var formConsult = document.querySelector('.popup-consultation form'),
       inputConsult = formConsult.getElementsByTagName('input'),
       inputNameConsult = inputConsult[0],
       inputPhoneConsult = inputConsult[1];
-  var modalDesign = document.querySelector('.popup-design');
-  inputName.addEventListener('input', function () {
-    inputName.value = inputName.value.replace(/[A-z\d]/g, "");
-  });
-  inputPhone.addEventListener('input', function () {
-    inputPhone.value = inputPhone.value.replace(/[^0-9+]/g, ""); // inputPhone.value = inputPhone.value.replace(/(?<!^)\+/g, "");
+  var formMain = document.querySelector('.consultation form'),
+      inputMain = formMain.getElementsByTagName('input'),
+      inputNameMain = inputMain[0],
+      inputPhoneMain = inputMain[1],
+      commentMain = inputMain[3]; // let modalDesign = document.querySelector('.popup-design');
 
-    if (inputPhone.value.length > 12) {
-      inputPhone.value = inputPhone.value.substr(0, 12);
-    }
-  });
-  comment.addEventListener('input', function () {
-    comment.value = comment.value.replace(/[A-z]/g, "");
-  });
-  inputNameConsult.addEventListener('input', function () {
-    inputNameConsult.value = inputNameConsult.value.replace(/[A-z\d]/g, "");
-  });
-  inputPhoneConsult.addEventListener('input', function () {
-    inputPhoneConsult.value = inputPhoneConsult.value.replace(/[^0-9+]/g, ""); // inputPhoneConsult.value = inputPhoneConsult.value.replace(/(?<!^)\+/g, "");
+  commentDesign.classList.add('message');
+  commentMain.classList.add('message');
 
-    if (inputPhoneConsult.value.length > 12) {
-      inputPhoneConsult.value = inputPhoneConsult.value.substr(0, 12);
-    }
-  });
+  var nameValidation = function nameValidation(input) {
+    input.addEventListener('input', function () {
+      input.value = input.value.replace(/[A-z\d]/g, "");
+    });
+  };
+
+  nameValidation(inputName);
+  nameValidation(inputNameConsult);
+  nameValidation(inputNameMain);
+
+  var phoneValidation = function phoneValidation(input) {
+    input.addEventListener('input', function () {
+      input.value = input.value.replace(/[^0-9+]/g, "");
+      input.value = input.value.replace(/(?<!^)\+/g, "");
+
+      if (input.value.length > 12) {
+        input.value = input.value.substr(0, 12);
+      }
+    });
+  };
+
+  phoneValidation(inputPhone);
+  phoneValidation(inputPhoneConsult);
+  phoneValidation(inputPhoneMain);
+
+  var commentValidation = function commentValidation(input) {
+    input.addEventListener('input', function () {
+      input.value = input.value.replace(/[A-z]/g, "");
+    });
+  };
+
+  commentValidation(commentDesign);
+  commentValidation(commentMain);
 
   var sendForm = function sendForm(elem) {
     elem.addEventListener('submit', function (event) {
@@ -326,6 +344,7 @@ var form = function form() {
 
       var clearInput = function clearInput(elem) {
         var input = elem.getElementsByTagName('input');
+        var comment = elem.getElementsByClassName('.message');
 
         for (var i = 0; i < input.length; i++) {
           input[i].value = '';
@@ -338,9 +357,8 @@ var form = function form() {
         statusMessage.innerHTML = "<img src='img/ajax-loader.gif'>";
         statusMessage.style.cssText = "text-align: center; padding-top: 20px;";
       }).then(function () {
-        // statusMessage.innerHTML = message.success;
-        // modalDesign.style.display = 'none';
-        statusMessage.innerHTML = "<img src='img/success.jpg'>";
+        statusMessage.innerHTML = message.success; // modalDesign.style.display = 'none';
+        // statusMessage.innerHTML = "<img src='img/success.jpg'>";
       }).catch(function () {
         return statusMessage.innerHTML = message.failure;
       }).then(clearInput(elem));
@@ -349,6 +367,7 @@ var form = function form() {
 
   sendForm(formDesign);
   sendForm(formConsult);
+  sendForm(formMain);
 };
 
 module.exports = form;
@@ -391,6 +410,53 @@ var mainSlider = function mainSlider() {
 };
 
 module.exports = mainSlider;
+
+/***/ }),
+
+/***/ "./src/js/parts/menu.js":
+/*!******************************!*\
+  !*** ./src/js/parts/menu.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var menu = function menu(trigger, boxBody) {
+  var button = {
+    'element': document.querySelector(trigger),
+    'active': false
+  };
+  var box = document.querySelector(boxBody);
+
+  var activateButton = function activateButton() {
+    if (button.active === false) {
+      button.active = true;
+      box.style.display = 'block';
+    } else {
+      button.active = false;
+      box.style.display = 'none';
+    }
+  };
+
+  window.addEventListener('resize', function () {
+    if (document.body.clientWidth <= 991) {
+      if (button.active === true) {
+        button.active = false;
+        box.style.display = 'none';
+      }
+
+      button.element.addEventListener('click', activateButton);
+    } else {
+      if (button.active === true) {
+        button.active = false;
+        box.style.display = 'none';
+      }
+
+      button.element.removeEventListener('click', activateButton);
+    }
+  });
+};
+
+module.exports = menu;
 
 /***/ }),
 
@@ -507,15 +573,15 @@ var sizes = function sizes() {
   //         }
   //     }
   // });
-
-  function changeImg(source) {
-    imgBlock.src = source;
-  }
-
-  console.log(imgBlock[0].src);
-  imgBlock[0].addEventListener('click', function () {
-    changeImg('img/sizes-1-1.png');
-  });
+  // function changeImg(source) {
+  //     imgBlock.src = source;
+  // }
+  // console.log(imgBlock[0].src);
+  // imgBlock[0].onMouseOver = changeImg('img/sizes-1-1.png' );
+  // console.log(imgBlock[0].src);
+  // imgBlock[0].addEventListener('click', () => {
+  //     changeImg('img/sizes-1-1.png' );
+  // });
 };
 
 module.exports = sizes;
@@ -542,7 +608,8 @@ window.addEventListener('DOMContentLoaded', function () {
       modals = __webpack_require__(/*! ./parts/modal.js */ "./src/js/parts/modal.js"),
       form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js"),
       accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
-      sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js");
+      sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js"),
+      menu = __webpack_require__(/*! ./parts/menu.js */ "./src/js/parts/menu.js");
 
   mainSlider();
   feedbackSlider();
@@ -550,6 +617,7 @@ window.addEventListener('DOMContentLoaded', function () {
   form();
   accordion();
   sizes();
+  menu('.burger', '.burger-menu');
 });
 
 /***/ })
