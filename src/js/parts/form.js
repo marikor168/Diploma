@@ -42,7 +42,7 @@ let form = () => {
     let phoneValidation = (input) => {
         input.addEventListener('input', () => {
             input.value = input.value.replace(/[^0-9+]/g, "");
-            input.value = input.value.replace(/(?<!^)\+/g, "");
+            // input.value = input.value.replace(/(?<!^)\+/g, "");
             if (input.value.length > 12) {
                     input.value = input.value.substr(0, 12);
                 }

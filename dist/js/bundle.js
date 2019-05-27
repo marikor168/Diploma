@@ -262,6 +262,74 @@ module.exports = feedbackSlider;
 
 /***/ }),
 
+/***/ "./src/js/parts/filter.js":
+/*!********************************!*\
+  !*** ./src/js/parts/filter.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var filter = function filter() {
+  var filtersWrapper = document.querySelector('.portfolio-menu'),
+      filters = filtersWrapper.querySelectorAll('li'),
+      portfolioNo = document.querySelector('.portfolio-no'),
+      blocksAll = document.querySelectorAll('.portfolio-wrapper .all'),
+      blocksLovers = document.querySelectorAll('.portfolio-wrapper .lovers'),
+      blocksChef = document.querySelectorAll('.portfolio-wrapper .chef'),
+      blocksGirl = document.querySelectorAll('.portfolio-wrapper .girl'),
+      blocksGuy = document.querySelectorAll('.portfolio-wrapper .guy');
+
+  var show = function show(blocks) {
+    blocksAll.forEach(function (item) {
+      item.style.display = 'none';
+    });
+    blocks.forEach(function (item) {
+      item.style.display = 'block';
+    });
+    portfolioNo.style.display = 'none';
+  };
+
+  var showPortfolioNo = function showPortfolioNo() {
+    blocksAll.forEach(function (item) {
+      item.style.display = 'none';
+    });
+    portfolioNo.style.display = 'block';
+  };
+
+  var changeStyle = function changeStyle(filterHeader) {
+    filters.forEach(function (item) {
+      item.classList.remove('active');
+    });
+    filterHeader.classList.add('active');
+  };
+
+  var blocks = [blocksAll, blocksLovers, blocksChef, blocksGirl, blocksGuy];
+
+  var _loop = function _loop(i) {
+    filters[i].addEventListener('click', function () {
+      show(blocks[i]);
+      changeStyle(filters[i]);
+    });
+  };
+
+  for (var i = 0; i < 5; i++) {
+    _loop(i);
+  }
+
+  filters[5].addEventListener('click', function () {
+    showPortfolioNo();
+    changeStyle(filters[5]);
+  });
+  filters[6].addEventListener('click', function () {
+    showPortfolioNo();
+    changeStyle(filters[6]);
+  });
+};
+
+module.exports = filter;
+
+/***/ }),
+
 /***/ "./src/js/parts/form.js":
 /*!******************************!*\
   !*** ./src/js/parts/form.js ***!
@@ -307,8 +375,7 @@ var form = function form() {
 
   var phoneValidation = function phoneValidation(input) {
     input.addEventListener('input', function () {
-      input.value = input.value.replace(/[^0-9+]/g, "");
-      input.value = input.value.replace(/(?<!^)\+/g, "");
+      input.value = input.value.replace(/[^0-9+]/g, ""); // input.value = input.value.replace(/(?<!^)\+/g, "");
 
       if (input.value.length > 12) {
         input.value = input.value.substr(0, 12);
@@ -635,7 +702,8 @@ window.addEventListener('DOMContentLoaded', function () {
       accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
       sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js"),
       menu = __webpack_require__(/*! ./parts/menu.js */ "./src/js/parts/menu.js"),
-      styles = __webpack_require__(/*! ./parts/styles.js */ "./src/js/parts/styles.js");
+      styles = __webpack_require__(/*! ./parts/styles.js */ "./src/js/parts/styles.js"),
+      filter = __webpack_require__(/*! ./parts/filter.js */ "./src/js/parts/filter.js");
 
   mainSlider();
   feedbackSlider();
@@ -645,6 +713,7 @@ window.addEventListener('DOMContentLoaded', function () {
   sizes();
   menu('.burger', '.burger-menu');
   styles();
+  filter();
 });
 
 /***/ })
