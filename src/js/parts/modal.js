@@ -56,7 +56,6 @@ let modals = () => {
             modalOpen(modalGift);
             gift.style.display = 'none'; 
         }
-        // console.log(window.scrollY);
     });
 
     setTimeout((modal) => {
