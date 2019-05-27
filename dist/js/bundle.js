@@ -588,6 +588,31 @@ module.exports = sizes;
 
 /***/ }),
 
+/***/ "./src/js/parts/styles.js":
+/*!********************************!*\
+  !*** ./src/js/parts/styles.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var styles = function styles() {
+  var btn = document.querySelector('.button-styles'),
+      stylesBlocks = document.querySelectorAll('.styles-2'),
+      blocks = document.querySelectorAll('.col-xs-offset-1');
+  var classes = blocks[0].className;
+  btn.addEventListener('click', function () {
+    stylesBlocks.forEach(function (item) {
+      item.classList.value = '';
+      item.classList.value = classes;
+    });
+    btn.style.display = 'none';
+  });
+};
+
+module.exports = styles;
+
+/***/ }),
+
 /***/ "./src/js/script.js":
 /*!**************************!*\
   !*** ./src/js/script.js ***!
@@ -609,7 +634,8 @@ window.addEventListener('DOMContentLoaded', function () {
       form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js"),
       accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
       sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js"),
-      menu = __webpack_require__(/*! ./parts/menu.js */ "./src/js/parts/menu.js");
+      menu = __webpack_require__(/*! ./parts/menu.js */ "./src/js/parts/menu.js"),
+      styles = __webpack_require__(/*! ./parts/styles.js */ "./src/js/parts/styles.js");
 
   mainSlider();
   feedbackSlider();
@@ -618,6 +644,7 @@ window.addEventListener('DOMContentLoaded', function () {
   accordion();
   sizes();
   menu('.burger', '.burger-menu');
+  styles();
 });
 
 /***/ })

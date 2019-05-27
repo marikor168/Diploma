@@ -11,7 +11,8 @@ window.addEventListener('DOMContentLoaded', function() {
         form = require('./parts/form.js'),
         accordion = require('./parts/accordion.js'),
         sizes = require('./parts/sizes.js'),
-        menu = require('./parts/menu.js');
+        menu = require('./parts/menu.js'),
+        styles = require('./parts/styles.js');
 
     mainSlider();
     feedbackSlider();
@@ -20,4 +21,5 @@ window.addEventListener('DOMContentLoaded', function() {
     accordion();
     sizes();
     menu('.burger', '.burger-menu');
+    styles();
 });
