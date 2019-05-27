@@ -10,14 +10,13 @@ let accordion = () => {
 
 //   accordionHeadings.__proto__.forEach = [].__proto__.forEach;
 
-var activePanel;
-accordionHeadings.forEach(function(item, i, accordionHeadings) {
+let activePanel;
+accordionHeadings.forEach((item, i, accordionHeadings) => {
   item.addEventListener('click', function(e) {
     //show new thingy;
     this.classList.add('ui-accordion-header-active');
     this.nextElementSibling.classList.add('ui-accordion-content-active');
     this.nextElementSibling.style.display = 'block';
-
 
     //hide old thingy
     if (activePanel) {
