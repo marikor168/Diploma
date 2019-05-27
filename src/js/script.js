@@ -13,7 +13,8 @@ window.addEventListener('DOMContentLoaded', function() {
         sizes = require('./parts/sizes.js'),
         menu = require('./parts/menu.js'),
         styles = require('./parts/styles.js'),
-        filter = require('./parts/filter.js');
+        filter = require('./parts/filter.js'),
+        calc = require('./parts/calc.js');
 
     mainSlider();
     feedbackSlider();
@@ -24,4 +25,5 @@ window.addEventListener('DOMContentLoaded', function() {
     menu('.burger', '.burger-menu');
     styles();
     filter();
+    calc();
 });
