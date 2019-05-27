@@ -23,7 +23,7 @@ let sizes = () => {
     }); 
 
     sizesBlock.forEach((item, i) => {
-        item.onmouseover = function () {
+        item.touchstart = function () {
             this.querySelector("img").src = `img/sizes-${i+1}-1.png`;
             this.querySelectorAll('p').forEach((item, i) => {
                 // табличка ХИТ ПРОДАЖ
@@ -35,7 +35,7 @@ let sizes = () => {
     });        
     
     sizesBlock.forEach((item, i) => {
-        item.onmouseout = function () {
+        item.touchcancel = function () {
             this.querySelector("img").src = `img/sizes-${i+1}.png`;
             this.querySelectorAll('p').forEach((item) => {
                 item.style.display = 'block';

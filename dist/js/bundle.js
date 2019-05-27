@@ -631,7 +631,7 @@ var sizes = function sizes() {
     };
   });
   sizesBlock.forEach(function (item, i) {
-    item.onmouseover = function () {
+    item.touchstart = function () {
       this.querySelector("img").src = "img/sizes-".concat(i + 1, "-1.png");
       this.querySelectorAll('p').forEach(function (item, i) {
         // табличка ХИТ ПРОДАЖ
@@ -642,7 +642,7 @@ var sizes = function sizes() {
     };
   });
   sizesBlock.forEach(function (item, i) {
-    item.onmouseout = function () {
+    item.touchcancel = function () {
       this.querySelector("img").src = "img/sizes-".concat(i + 1, ".png");
       this.querySelectorAll('p').forEach(function (item) {
         item.style.display = 'block';
