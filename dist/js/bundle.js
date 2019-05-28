@@ -424,8 +424,7 @@ var form = function form() {
       inputMain = formMain.getElementsByTagName('input'),
       inputNameMain = inputMain[0],
       inputPhoneMain = inputMain[1],
-      commentMain = inputMain[3]; // let modalDesign = document.querySelector('.popup-design');
-
+      commentMain = inputMain[3];
   commentDesign.classList.add('message');
   commentMain.classList.add('message');
 
@@ -440,11 +439,54 @@ var form = function form() {
   nameValidation(inputNameMain);
 
   var phoneValidation = function phoneValidation(input) {
+    var telPlaceholder = "(___) ___-____";
+    var numsOnly = "";
+    input.addEventListener('focus', function () {
+      if (numsOnly.length !== 10) {
+        input.value = telPlaceholder;
+      }
+    });
     input.addEventListener('input', function () {
-      input.value = input.value.replace(/[^0-9+]/g, ""); // input.value = input.value.replace(/(?<!^)\+/g, "");
+      var rawTel = input.value;
+      numsOnly = rawTel.replace(/\D/g, "");
+      var result = telPlaceholder.split("");
 
-      if (input.value.length > 12) {
-        input.value = input.value.substr(0, 12);
+      for (var i = 0, j = 0; i < result.length; i++) {
+        if (i == 0 || i == 4 || i == 5 || i == 9) {
+          continue;
+        }
+
+        var tmp = numsOnly[j++];
+
+        if (tmp !== undefined) {
+          result[i] = tmp;
+        }
+      }
+
+      input.value = result.join("");
+
+      if (numsOnly.length > 10) {
+        numsOnly = numsOnly.substr(0, 10);
+      }
+
+      setCursorPosition();
+    });
+
+    function setCursorPosition() {
+      var length = numsOnly.length;
+
+      if (length >= 0 && length <= 3) {
+        input.setSelectionRange(length + 1, length + 1);
+      } else if (length >= 4 && length <= 6) {
+        input.setSelectionRange(length + 3, length + 3);
+      } else {
+        input.setSelectionRange(length + 4, length + 4);
+      }
+    }
+
+    input.addEventListener('blur', function () {
+      if (numsOnly.length !== 10) {
+        input.value = '';
       }
     });
   };
@@ -465,7 +507,6 @@ var form = function form() {
   var sendForm = function sendForm(elem) {
     elem.addEventListener('submit', function (event) {
       event.preventDefault();
-      elem.appendChild(statusMessage);
       var formData = new FormData(elem);
 
       var postData = function postData(data) {
@@ -487,13 +528,13 @@ var form = function form() {
       };
 
       postData(formData).then(function () {
+        elem.appendChild(statusMessage);
         statusMessage.innerHTML = "<img src='img/ajax-loader.gif'>";
         statusMessage.style.cssText = "text-align: center; padding-top: 20px;";
       }).then(function () {
-        statusMessage.innerHTML = message.success; // modalDesign.style.display = 'none';
-        // statusMessage.innerHTML = "<img src='img/success.jpg'>";
+        elem.innerHTML = message.success;
       }).catch(function () {
-        return statusMessage.innerHTML = message.failure;
+        elem.innerHTML = message.failure;
       }).then(clearInput(elem));
     });
   };
