@@ -218,8 +218,7 @@ var calc = function calc() {
       totalValue = document.querySelector('.calc-price'),
       total = 1000,
       indexSize = 0,
-      indexMaterial = 0,
-      promo = false;
+      indexMaterial = 0;
   size.options[0].value = 0;
   size.options[1].value = 0.5;
   size.options[2].value = 1;
@@ -228,58 +227,43 @@ var calc = function calc() {
   material.options[0].value = 0;
   material.options[1].value = 0.5;
   material.options[2].value = 1;
-  material.options[3].value = 1.5; // services.options[0].value = 0;
-  // services.options[1].value = 1.5;
-  // services.options[2].value = 2;
-  // services.options[3].value = 2.5;
-
+  material.options[3].value = 1.5;
   services.options[0].value = 0;
-  services.options[1].value = 1.5;
-  services.options[2].value = 2;
-  services.options[3].value = 2.5;
-  size.addEventListener('change', function () {
-    indexSize = +size.options[size.selectedIndex].value;
+  services.options[1].value = 1500;
+  services.options[2].value = 2000;
+  services.options[3].value = 2500;
+
+  var inputData = function inputData() {
     total = 1000;
 
     if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
       totalValue.innerHTML = 0;
     } else {
-      total = (indexSize + indexMaterial) * total;
-      totalValue.innerHTML = total + 1000 * +services.options[services.selectedIndex].value;
+      total = (indexSize + indexMaterial) * total + +services.options[services.selectedIndex].value;
+      totalValue.innerHTML = total;
       promocode.value = '';
     }
+  };
+
+  size.addEventListener('change', function () {
+    indexSize = +size.options[size.selectedIndex].value;
+    inputData();
   });
   material.addEventListener('change', function () {
     indexMaterial = +material.options[material.selectedIndex].value;
-    total = 1000;
-
-    if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
-      totalValue.innerHTML = 0;
-    } else {
-      total = (indexSize + indexMaterial) * total;
-      totalValue.innerHTML = total + 1000 * +services.options[services.selectedIndex].value;
-      promocode.value = '';
-    }
+    inputData();
   });
   services.addEventListener('change', function () {
-    total = 1000;
-
-    if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
-      totalValue.innerHTML = 0;
-    } else {
-      var a = 1000;
-      total = (indexSize + indexMaterial) * total + a * +this.options[this.selectedIndex].value;
-      totalValue.innerHTML = total;
-      promocode.value = '';
-    }
+    inputData();
   });
   promocode.addEventListener('input', function () {
-    if (promocode.value === 'IWANTPOPART') {
-      promo = true;
+    if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
+      totalValue.innerHTML = 0;
+      promocode.value = '';
+    } else if (promocode.value === 'IWANTPOPART') {
       totalValue.innerHTML = total - total * 0.3;
     } else {
       totalValue.innerHTML = total;
-      promo = false;
     }
   });
 };
