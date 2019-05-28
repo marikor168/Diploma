@@ -82,18 +82,35 @@ let calc = () => {
         }
     });
 
+    
+    promocode.addEventListener('input', () => {
+        document.addEventListener('click', function(event) {
+            var isClickInside = promocode.contains(event.target);
+        
+            if (!isClickInside) {
+                //the click was outside the specifiedElement, do something
+                if (promocode.value === 'IWANTPOPART') {
+                    console.log('true');
+                    console.log(total);
+        
+                    totalValue.innerHTML = total - total * 0.3;
+                    // totalValue.innerHTML = (total + total * +services.options[services.selectedIndex].value) - (total + total * +services.options[services.selectedIndex].value) * 0.3;
+                }
+            }
+        });
+    });
     // promocode.addEventListener('input', () => {
+    //     console.log(total);
+
     //     if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
     //         totalValue.innerHTML = 0;
-    //     } if (promocode.value === 'IWANTPOPART') {
-    //         console.log('true');
-    //         totalValue.innerHTML = (total + total * +services.options[services.selectedIndex].value) - (total + total * +services.options[services.selectedIndex].value) * 0.3;
     //     } 
-    //     else {
-    //         console.log('false');
+    //     if (promocode.value === 'IWANTPOPART') {
+    //         console.log('true');
+    //         console.log(total);
 
-    //     //     total = (indexSize + indexMaterial) * total;
-    //         // totalValue.innerHTML = total + total * +services.options[services.selectedIndex].value;
+    //         totalValue.innerHTML = total - total * 0.3;
+    //         // totalValue.innerHTML = (total + total * +services.options[services.selectedIndex].value) - (total + total * +services.options[services.selectedIndex].value) * 0.3;
     //     }
     // });
 };

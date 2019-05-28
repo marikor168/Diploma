@@ -46,7 +46,6 @@ let modals = () => {
         }
         if (event.target.classList.contains('popup-gift') || event.target.classList.contains('popup-close')) {
             modalClose(modalGift);
-            gift.style.display = 'block';
         }
         
     });
