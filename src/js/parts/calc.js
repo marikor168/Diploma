@@ -34,28 +34,28 @@ let calc = () => {
 
         total = 1000;
 
-        console.log('total', total);
-        console.log('indexSize', size.options[size.selectedIndex].value);
-        console.log('indexMaterial', material.options[material.selectedIndex].value);
-        console.log('indexSize + indexMaterial',indexSize + indexMaterial);
-        console.log('total',total);
+        // console.log('total', total);
+        // console.log('indexSize', size.options[size.selectedIndex].value);
+        // console.log('indexMaterial', material.options[material.selectedIndex].value);
+        // console.log('indexSize + indexMaterial',indexSize + indexMaterial);
+        // console.log('total',total);
 
         if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
             totalValue.innerHTML = 0;
         } else {
             total = (indexSize + indexMaterial) * total;
-            totalValue.innerHTML = total + total * +services.options[services.selectedIndex].value;
+            totalValue.innerHTML = total + 1000 * +services.options[services.selectedIndex].value;
         }
     });
 
     material.addEventListener('change', function () {
         indexMaterial = +material.options[material.selectedIndex].value;
 
-        console.log('total', total);
-        console.log('indexSize', size.options[size.selectedIndex].value);
-        console.log('indexMaterial', material.options[material.selectedIndex].value);
-        console.log('indexSize + indexMaterial',indexSize + indexMaterial);
-        console.log('total',total);
+        // console.log('total', total);
+        // console.log('indexSize', size.options[size.selectedIndex].value);
+        // console.log('indexMaterial', material.options[material.selectedIndex].value);
+        // console.log('indexSize + indexMaterial',indexSize + indexMaterial);
+        // console.log('total',total);
 
         total = 1000;
 
@@ -63,33 +63,39 @@ let calc = () => {
             totalValue.innerHTML = 0;
         } else {
             total = (indexSize + indexMaterial) * total;
-            totalValue.innerHTML = total + total * +services.options[services.selectedIndex].value;
+            totalValue.innerHTML = total + 1000 * +services.options[services.selectedIndex].value;
         }
     });
     
     services.addEventListener('change', function () {
+        total = 1000;
         if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
             totalValue.innerHTML = 0;
         } else {
+
+            // console.log(total);
             let a = 1000;
-            totalValue.innerHTML = total + a * +this.options[this.selectedIndex].value;
+            total = (indexSize + indexMaterial) * total + a * +this.options[this.selectedIndex].value;
+            totalValue.innerHTML = total;
+            // console.log(total);
+        
         }
     });
 
-    promocode.addEventListener('input', () => {
-        if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
-            totalValue.innerHTML = 0;
-        } if (promocode.value === 'IWANTPOPART') {
-            console.log('true');
-            totalValue.innerHTML = (total + total * +services.options[services.selectedIndex].value) - (total + total * +services.options[services.selectedIndex].value) * 0.3;
-        } 
-        else {
-            console.log('false');
+    // promocode.addEventListener('input', () => {
+    //     if (size.options[size.selectedIndex].value == 0 || material.options[material.selectedIndex].value == 0) {
+    //         totalValue.innerHTML = 0;
+    //     } if (promocode.value === 'IWANTPOPART') {
+    //         console.log('true');
+    //         totalValue.innerHTML = (total + total * +services.options[services.selectedIndex].value) - (total + total * +services.options[services.selectedIndex].value) * 0.3;
+    //     } 
+    //     else {
+    //         console.log('false');
 
-        //     total = (indexSize + indexMaterial) * total;
-            // totalValue.innerHTML = total + total * +services.options[services.selectedIndex].value;
-        }
-    });
+    //     //     total = (indexSize + indexMaterial) * total;
+    //         // totalValue.innerHTML = total + total * +services.options[services.selectedIndex].value;
+    //     }
+    // });
 };
 
 module.exports = calc;
