@@ -645,17 +645,11 @@ var modals = function modals() {
   var modalDesign = document.querySelector('.popup-design'),
       modalConsult = document.querySelector('.popup-consultation'),
       modalGift = document.querySelector('.popup-gift'),
-      gift = document.querySelector('.fixed-gift'),
-      body = document.querySelector('body');
+      gift = document.querySelector('.fixed-gift');
 
-  var modalOpen = function modalOpen(modal) {
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  };
-
-  var modalClose = function modalClose(modal) {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
+  var modalAction = function modalAction(modal, display, overflow) {
+    modal.style.display = display;
+    document.body.style.overflow = overflow;
   };
 
   modalDesign.classList.add('animated');
@@ -666,43 +660,43 @@ var modals = function modals() {
   modalGift.classList.add('animated');
   modalGift.classList.add('fadeIn');
   var clickBtn = false;
-  body.addEventListener('click', function (event) {
+  document.body.addEventListener('click', function (event) {
     clickBtn = true;
 
     if (event.target.classList.contains('button-design')) {
-      modalOpen(modalDesign);
+      modalAction(modalDesign, 'block', 'hidden');
     }
 
     if (event.target.classList.contains('button-consultation')) {
-      modalOpen(modalConsult);
+      modalAction(modalConsult, 'block', 'hidden');
     }
 
     if (event.target.classList.contains('fixed-gift')) {
-      modalOpen(modalGift);
+      modalAction(modalGift, 'block', 'hidden');
       gift.style.display = 'none';
     }
 
     if (event.target.classList.contains('popup-design') || event.target.classList.contains('popup-close')) {
-      modalClose(modalDesign);
+      modalAction(modalDesign, 'none', '');
     }
 
     if (event.target.classList.contains('popup-consultation') || event.target.classList.contains('popup-close')) {
-      modalClose(modalConsult);
+      modalAction(modalConsult, 'none', '');
     }
 
     if (event.target.classList.contains('popup-gift') || event.target.classList.contains('popup-close')) {
-      modalClose(modalGift);
+      modalAction(modalGift, 'none', '');
     }
   });
   window.addEventListener('scroll', function () {
-    if (window.innerHeight + Math.abs(body.getBoundingClientRect().top) >= document.body.offsetHeight && !clickBtn) {
-      modalOpen(modalGift);
+    if (window.innerHeight + Math.abs(document.body.getBoundingClientRect().top) >= document.body.offsetHeight && !clickBtn) {
+      modalAction(modalGift, 'block', 'hidden');
       gift.style.display = 'none';
     }
   });
   setTimeout(function (modal) {
     if (modalDesign.style.display == '' && modalConsult.style.display == '' && modalGift.style.display == '') {
-      modalOpen(modalConsult);
+      modalAction(modalConsult, 'block', 'hidden');
     }
   }, 60000);
 };
